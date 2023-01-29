@@ -7,9 +7,12 @@ function App() {
   const [presupuesto, setPresupuesto] = useState(0);
   const [presupuestoValido, setPresupuestoValido] = useState(false);
   const [modal , setModal] = useState(false);
+  const [animar , setAnimar] = useState(false);
    const handleNuevoGasto =()=>{
     setModal(true);
-    console.log("jiji")
+    setTimeout(()=>{
+      setAnimar(true);
+    },500)
    }
   return (
     <div>
@@ -28,7 +31,7 @@ function App() {
           />
         </div>
       )}
-      {modal && <Modal setModal={setModal}></Modal>}
+      {modal && <Modal setModal={setModal} animar={animar} setAnimar={setAnimar}></Modal>}
     </div>
   );
 }
