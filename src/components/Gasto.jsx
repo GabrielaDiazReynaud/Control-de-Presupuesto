@@ -27,7 +27,7 @@ const diccionarioICONOS = {
 };
 
 
-const Gasto = ({ gasto, setGastoEditar ,setModal,setAnimar }) => {
+const Gasto = ({ eliminarGasto, gasto, setGastoEditar ,setModal,setAnimar }) => {
   const editarGasto =()=>{
     setGastoEditar(gasto);
     setModal(true);
@@ -45,7 +45,9 @@ const Gasto = ({ gasto, setGastoEditar ,setModal,setAnimar }) => {
   
   const trailingActions=()=>(
     <TrailingActions>
-      <SwipeAction onClick={()=>console.log("editar")}>Borrar</SwipeAction>
+      <SwipeAction onClick={()=>eliminarGasto(gasto.id)}
+      destructive={true}
+      >Borrar</SwipeAction>
     </TrailingActions>
   )
 

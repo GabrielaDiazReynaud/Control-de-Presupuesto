@@ -11,6 +11,7 @@ const NuevoPresupuesto = ({presupuesto , setPresupuesto, setPresupuestoValido}) 
    } else{
     setPresupuestoValido(true)
     setMensaje("")
+    localStorage.setItem('presupuesto', presupuesto ?? 0)
    }
   }
   return (

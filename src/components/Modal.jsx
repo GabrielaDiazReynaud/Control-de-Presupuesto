@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BotonCerrar from "../img/cerrar.svg";
 import Mensaje from "./Mensaje";
 
-const Modal = ({ setModal, animar, setAnimar, guardarGasto }) => {
+const Modal = ({ setModal, animar, setAnimar, guardarGasto,gastoEditar,setGastoEditar }) => {
   const [nombre, setNombre] = useState("");
-  const [cantidad, setCantidad] = useState(0);
+  const [cantidad, setCantidad] = useState("");
   const [categoria, setCategoria] = useState("");
   const [error , setError]= useState("")
+  const [fecha, setFecha]= useState("")
+  const [id, setId] =useState('')
+
+  useEffect(()=>{
+    if(Object.keys(gastoEditar).length > 0){
+      setNombre (gastoEditar.nombre);
+      setCantidad(gastoEditar.cantidad);
+      setCategoria(gastoEditar.categoria);
+      setId(gastoEditar.id)
+      setFecha(gastoEditar.fecha)
+    }
+  },[])
   const cerrarModal = () => {
+   
     setAnimar(false);
     setTimeout(() => {
       setModal(false);
+      setGastoEditar({});
     }, 500);
   };
   const handleSubmit = (e)=>{
@@ -21,7 +35,7 @@ const Modal = ({ setModal, animar, setAnimar, guardarGasto }) => {
         setError("")
       }, 3000)
     } else{
-      guardarGasto({nombre, cantidad, categoria})
+      guardarGasto({nombre, cantidad, categoria, id, fecha})
     }
   }
   return (
@@ -31,7 +45,7 @@ const Modal = ({ setModal, animar, setAnimar, guardarGasto }) => {
         <img src={BotonCerrar} alt="cerrar modal" onClick={cerrarModal} />
       </div>
       <form className={`formulario ${animar ? "animar" : "cerrar"}`} onSubmit={handleSubmit}>
-        <legend>Nuevo Gasto</legend>
+        <legend>{gastoEditar.nombre ?"Editar Gasto": "Nuevo Gasto"}</legend>
         {error && <Mensaje tipo="error">{error}</Mensaje>}
         <div className="campo">
           <label htmlFor="nombre">Nombre Gasto</label>
@@ -66,7 +80,7 @@ const Modal = ({ setModal, animar, setAnimar, guardarGasto }) => {
             <option value="suscripciones">Suscripciones</option>
           </select>
         </div>
-        <input type="submit" value="Agregar Gasto"></input>
+        <input type="submit" value={gastoEditar.nombre ?"Editar Gasto": "Agregar Gasto"}></input>
       </form>
     </div>
   );
