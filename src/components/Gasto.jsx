@@ -34,7 +34,6 @@ const Gasto = ({ eliminarGasto, gasto, setGastoEditar ,setModal,setAnimar }) => 
     setTimeout(()=>{
       setAnimar(true);
     },500)
-    console.log("buenas")
   }
   const leadingActions=()=>(
     <LeadingActions>
